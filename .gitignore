@@ -1,0 +1,11 @@
+# Dossiers lourds
+
+reports/
+mlruns/
+mlartifacts/
+.ipynb_checkpoints/
+
+# Environnement Python
+venv/
+__pycache__/
+*.pyc
