@@ -45,7 +45,7 @@ services:
       - mlops-network
 
   # ==========================================
-  # 🆕 Zookeeper (pour Kafka)
+  # Zookeeper (pour Kafka)
   # ==========================================
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -59,7 +59,7 @@ services:
       - mlops-network
 
   # ==========================================
-  # 🆕 Kafka Broker
+  # Kafka Broker
   # ==========================================
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -81,7 +81,7 @@ services:
       - mlops-network
 
   # ==========================================
-  # 🆕 Elasticsearch
+  # Elasticsearch
   # ==========================================
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
@@ -98,7 +98,7 @@ services:
       - mlops-network
 
   # ==========================================
-  # 🆕 Kibana
+  # Kibana
   # ==========================================
   kibana:
     image: docker.elastic.co/kibana/kibana:8.11.0
@@ -112,15 +112,57 @@ services:
     networks:
       - mlops-network
 
+  # ==========================================
+  # 🆕 Docker-in-Docker (pour Jenkins)
+  # ==========================================
+  docker-dind:
+    image: docker:dind
+    container_name: docker-dind
+    privileged: true
+    ports:
+      - "2375:2375"
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+    volumes:
+      - docker-certs:/certs
+    networks:
+      - mlops-network
+
+  # ==========================================
+  # 🆕 Jenkins CI/CD
+  # ==========================================
+  jenkins:
+    image: jenkinsci/blueocean:latest
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    environment:
+      DOCKER_HOST: tcp://docker-dind:2375
+      DOCKER_TLS_VERIFY: "false"
+      JENKINS_OPTS: "--prefix=/jenkins"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - mlops-network
+    depends_on:
+      - docker-dind
+
 # ==========================================
 # Volumes persistants
 # ==========================================
 volumes:
   elasticsearch-data:
     driver: local
+  jenkins_home:
+    driver: local
+  docker-certs:
+    driver: local
 
 # ==========================================
-# Réseau partagé (existant)
+# Réseau partagé
 # ==========================================
 networks:
   mlops-network:
