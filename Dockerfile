@@ -1,5 +1,5 @@
 # Image de base Python
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 # Métadonnées
 LABEL maintainer="safa@ecommerce-mlops.com"
