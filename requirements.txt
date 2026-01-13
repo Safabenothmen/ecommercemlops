@@ -1,22 +1,25 @@
-# API Framework
+# API Framework (si tu gardes FastAPI en local, mais pas nécessaire pour Streamlit Cloud)
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.0
 
+# Streamlit (indispensable pour Cloud)
+streamlit==1.30.0
+
 # Machine Learning
-scikit-learn==1.6.1
-pandas==2.1.3
-numpy==1.26.2
+scikit-learn==1.3.2
+pandas==2.1.4
+numpy==1.26.4
 joblib==1.3.2
 
-# MLOps Tools
+# MLOps Tools (optionnels pour Cloud, utiles en local)
 mlflow==2.9.2
 deepchecks==0.17.3
 
-# Kafka
+# Kafka (optionnel si tu ne fais pas de streaming sur Cloud)
 kafka-python==2.0.2
 
-# Elasticsearch
+# Elasticsearch (optionnel si tu ne connectes pas Kibana sur Cloud)
 elasticsearch==8.11.0
 
 # Utilities
@@ -24,12 +27,12 @@ python-dotenv==1.0.0
 python-multipart==0.0.6
 requests==2.31.0
 
-# Testing
+# Testing (pas nécessaire sur Cloud, mais tu peux les garder)
 pytest==7.4.3
 pytest-asyncio==0.21.1
 httpx==0.25.2
 
-# Data Visualization (pour notebooks)
+# Data Visualization
 matplotlib==3.8.2
 seaborn==0.13.0
 plotly==5.18.0
