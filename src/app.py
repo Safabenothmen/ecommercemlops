@@ -226,6 +226,10 @@ def render_page(result=None, values=None, error=None):
 @app.get("/", response_class=HTMLResponse)
 async def home():
     return render_page()
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 
 
 @app.post("/", response_class=HTMLResponse)
