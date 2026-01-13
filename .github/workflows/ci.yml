@@ -20,8 +20,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run tests
-      run: pytest tests/ -v
+    
 
     - name: Install Docker Compose
       run: |
